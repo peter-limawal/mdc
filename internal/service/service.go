@@ -16,21 +16,19 @@ func New(ms *store.MemoryStore, runner executor.LocalExecutor) *Service {
 }
 
 func (s *Service) Run(job domain.Job) (domain.Job, string, error) {
-	initialJob := job
+	queuedJob := job
 
-	if err := initialJob.Start(); err != nil {
+	if err := job.Start(); err != nil {
 		return job, "", err
 	}
 
-	if err := s.ms.Save(job); err != nil {
+	if err := s.ms.Save(queuedJob); err != nil {
 		return job, "", err
 	}
 
-	if err := s.ms.Update(initialJob); err != nil {
+	if err := s.ms.Update(job); err != nil {
 		return job, "", err
 	}
-
-	job = initialJob
 
 	output, execErr := s.runner.Run(job.Command)
 

@@ -13,7 +13,6 @@ func TestServiceRunSucceeds(t *testing.T) {
 	command := []string{"echo", "hello"}
 
 	job := domain.NewJob(id, command)
-
 	ms := store.NewMemoryStore()
 	runner := executor.LocalExecutor{}
 	svc := New(ms, runner)
@@ -43,12 +42,11 @@ func TestServiceRunSucceeds(t *testing.T) {
 	}
 }
 
-func TestServiceRunFailsWhenCommandUnknown(t *testing.T) {
+func TestServiceRunFailsWhenCommandIsUnknown(t *testing.T) {
 	id := "job-002"
 	command := []string{"__mdc_unknown_command__"}
 
 	job := domain.NewJob(id, command)
-
 	ms := store.NewMemoryStore()
 	runner := executor.LocalExecutor{}
 	svc := New(ms, runner)
@@ -74,12 +72,11 @@ func TestServiceRunFailsWhenCommandUnknown(t *testing.T) {
 	}
 }
 
-func TestServiceRunRejectsDuplicateJobID(t *testing.T) {
+func TestServiceRunFailsWhenJobIDAlreadyExists(t *testing.T) {
 	id := "job-001"
 	command := []string{"echo", "hello"}
 
 	job := domain.NewJob(id, command)
-
 	ms := store.NewMemoryStore()
 	runner := executor.LocalExecutor{}
 	svc := New(ms, runner)
@@ -105,7 +102,7 @@ func TestServiceRunRejectsDuplicateJobID(t *testing.T) {
 	}
 }
 
-func TestServiceRunRejectsNonQueuedJob(t *testing.T) {
+func TestServiceRunFailsWhenJobIsNotQueued(t *testing.T) {
 	id := "job-001"
 	command := []string{"echo", "hello"}
 
@@ -128,6 +125,6 @@ func TestServiceRunRejectsNonQueuedJob(t *testing.T) {
 	_, err = ms.Get(job.ID)
 
 	if err == nil {
-		t.Fatalf("expected non-queued job not to be stored")
+		t.Fatal("expected non-queued job not to be stored")
 	}
 }

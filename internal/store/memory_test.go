@@ -29,7 +29,7 @@ func TestMemoryStoreSave(t *testing.T) {
 	}
 }
 
-func TestMemoryStoreSaveRejectsDuplicateID(t *testing.T) {
+func TestMemoryStoreSaveFailsWhenIDAlreadyExists(t *testing.T) {
 	id := "job-001"
 
 	existingJob := domain.NewJob(id, []string{"echo", "existing"})

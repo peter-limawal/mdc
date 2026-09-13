@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestNewJobStartsQueued(t *testing.T) {
+func TestNewJobInitializesQueuedState(t *testing.T) {
 	id := "job-001"
 	command := []string{"echo", "hello"}
 

@@ -17,7 +17,7 @@ func TestLocalExecutorRun(t *testing.T) {
 	}
 }
 
-func TestLocalExecutorRunRejectsEmptyCommand(t *testing.T) {
+func TestLocalExecutorRunFailsWhenCommandIsEmpty(t *testing.T) {
 	runner := LocalExecutor{}
 
 	_, err := runner.Run([]string{})
@@ -27,7 +27,7 @@ func TestLocalExecutorRunRejectsEmptyCommand(t *testing.T) {
 	}
 }
 
-func TestLocalExecutorRunRejectsUnknownCommand(t *testing.T) {
+func TestLocalExecutorRunFailsWhenCommandIsUnknown(t *testing.T) {
 	runner := LocalExecutor{}
 
 	_, err := runner.Run([]string{"__mdc_unknown_command__"})
