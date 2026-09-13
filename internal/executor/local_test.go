@@ -5,8 +5,8 @@ import "testing"
 func TestLocalExecutorRun(t *testing.T) {
 	runner := LocalExecutor{}
 
-	command := []string{"echo", "hello"}
-	output, err := runner.Run(command)
+	cmd := []string{"echo", "hello"}
+	output, err := runner.Run(cmd)
 
 	if err != nil {
 		t.Fatalf("unexpected error running command: %v", err)

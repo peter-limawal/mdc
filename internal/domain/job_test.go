@@ -7,9 +7,9 @@ import (
 
 func TestNewJobInitializesQueuedState(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	wantID := "job-001"
 
@@ -30,9 +30,9 @@ func TestNewJobInitializesQueuedState(t *testing.T) {
 
 func TestJobStart(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -45,9 +45,9 @@ func TestJobStart(t *testing.T) {
 
 func TestJobStartFailsWhenAlreadyRunning(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error on first start: %v", err)
@@ -66,9 +66,9 @@ func TestJobStartFailsWhenAlreadyRunning(t *testing.T) {
 
 func TestJobStartFailsWhenAlreadySucceeded(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -91,9 +91,9 @@ func TestJobStartFailsWhenAlreadySucceeded(t *testing.T) {
 
 func TestJobStartFailsWhenAlreadyFailed(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -116,9 +116,9 @@ func TestJobStartFailsWhenAlreadyFailed(t *testing.T) {
 
 func TestJobStartFailsWhenAlreadyCancelled(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -141,9 +141,9 @@ func TestJobStartFailsWhenAlreadyCancelled(t *testing.T) {
 
 func TestJobSucceed(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -160,9 +160,9 @@ func TestJobSucceed(t *testing.T) {
 
 func TestJobSucceedFailsWhenQueued(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	err := job.Succeed()
 
@@ -177,9 +177,9 @@ func TestJobSucceedFailsWhenQueued(t *testing.T) {
 
 func TestJobSucceedFailsWhenAlreadySucceeded(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -202,9 +202,9 @@ func TestJobSucceedFailsWhenAlreadySucceeded(t *testing.T) {
 
 func TestJobSucceedFailsWhenAlreadyFailed(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -227,9 +227,9 @@ func TestJobSucceedFailsWhenAlreadyFailed(t *testing.T) {
 
 func TestJobSucceedFailsWhenAlreadyCancelled(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -252,9 +252,9 @@ func TestJobSucceedFailsWhenAlreadyCancelled(t *testing.T) {
 
 func TestJobFail(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -271,9 +271,9 @@ func TestJobFail(t *testing.T) {
 
 func TestJobFailFailsWhenQueued(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	err := job.Fail()
 
@@ -288,9 +288,9 @@ func TestJobFailFailsWhenQueued(t *testing.T) {
 
 func TestJobFailFailsWhenAlreadyFailed(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -313,9 +313,9 @@ func TestJobFailFailsWhenAlreadyFailed(t *testing.T) {
 
 func TestJobFailFailsWhenAlreadySucceeded(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -338,9 +338,9 @@ func TestJobFailFailsWhenAlreadySucceeded(t *testing.T) {
 
 func TestJobFailFailsWhenAlreadyCancelled(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -363,9 +363,9 @@ func TestJobFailFailsWhenAlreadyCancelled(t *testing.T) {
 
 func TestJobCancelWhenQueued(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Cancel(); err != nil {
 		t.Fatalf("unexpected error cancelling queued job: %v", err)
@@ -378,9 +378,9 @@ func TestJobCancelWhenQueued(t *testing.T) {
 
 func TestJobCancelWhenRunning(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -397,9 +397,9 @@ func TestJobCancelWhenRunning(t *testing.T) {
 
 func TestJobCancelFailsWhenAlreadySucceeded(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -422,9 +422,9 @@ func TestJobCancelFailsWhenAlreadySucceeded(t *testing.T) {
 
 func TestJobCancelFailsWhenAlreadyFailed(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
@@ -447,9 +447,9 @@ func TestJobCancelFailsWhenAlreadyFailed(t *testing.T) {
 
 func TestJobCancelFailsWhenAlreadyCancelled(t *testing.T) {
 	id := "job-001"
-	command := []string{"echo", "hello"}
+	cmd := []string{"echo", "hello"}
 
-	job := NewJob(id, command)
+	job := NewJob(id, cmd)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)
