@@ -3,16 +3,24 @@ package service
 import (
 	"github.com/peter-limawal/mdc/internal/domain"
 	"github.com/peter-limawal/mdc/internal/executor"
-	"github.com/peter-limawal/mdc/internal/store"
 )
 
-type Service struct {
-	ms     *store.MemoryStore
-	runner executor.LocalExecutor
+type JobStore interface {
+	Save(job domain.Job) error
+	Get(id string) (domain.Job, error)
+	Update(job domain.Job) error
 }
 
-func New(ms *store.MemoryStore, runner executor.LocalExecutor) *Service {
-	return &Service{ms: ms, runner: runner}
+type Service struct {
+	jobStore JobStore
+	runner   executor.LocalExecutor
+}
+
+func New(jobStore JobStore, runner executor.LocalExecutor) *Service {
+	return &Service{
+		jobStore: jobStore,
+		runner:   runner,
+	}
 }
 
 func (s *Service) Run(job domain.Job) (domain.Job, string, error) {
@@ -22,11 +30,11 @@ func (s *Service) Run(job domain.Job) (domain.Job, string, error) {
 		return job, "", err
 	}
 
-	if err := s.ms.Save(queuedJob); err != nil {
+	if err := s.jobStore.Save(queuedJob); err != nil {
 		return job, "", err
 	}
 
-	if err := s.ms.Update(job); err != nil {
+	if err := s.jobStore.Update(job); err != nil {
 		return job, "", err
 	}
 
@@ -37,7 +45,7 @@ func (s *Service) Run(job domain.Job) (domain.Job, string, error) {
 			return job, output, err
 		}
 
-		if err := s.ms.Update(job); err != nil {
+		if err := s.jobStore.Update(job); err != nil {
 			return job, output, err
 		}
 
@@ -48,7 +56,7 @@ func (s *Service) Run(job domain.Job) (domain.Job, string, error) {
 		return job, output, err
 	}
 
-	if err := s.ms.Update(job); err != nil {
+	if err := s.jobStore.Update(job); err != nil {
 		return job, output, err
 	}
 
