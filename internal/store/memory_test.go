@@ -65,29 +65,29 @@ func TestMemoryStoreGet(t *testing.T) {
 	id := "job-001"
 	cmd := []string{"echo", "hello"}
 
-	wantJob := domain.NewJob(id, cmd)
+	job := domain.NewJob(id, cmd)
 	ms := NewMemoryStore()
 
-	if err := ms.Save(wantJob); err != nil {
+	if err := ms.Save(job); err != nil {
 		t.Fatalf("unexpected error saving job: %v", err)
 	}
 
-	gotJob, err := ms.Get(wantJob.ID)
+	gotJob, err := ms.Get(job.ID)
 
 	if err != nil {
 		t.Fatalf("unexpected error getting job: %v", err)
 	}
 
-	if gotJob.ID != wantJob.ID {
-		t.Errorf("got ID %q, want %q", gotJob.ID, wantJob.ID)
+	if gotJob.ID != job.ID {
+		t.Errorf("got ID %q, want %q", gotJob.ID, job.ID)
 	}
 
-	if !slices.Equal(gotJob.Command, wantJob.Command) {
-		t.Errorf("got command %v, want %v", gotJob.Command, wantJob.Command)
+	if !slices.Equal(gotJob.Command, job.Command) {
+		t.Errorf("got command %v, want %v", gotJob.Command, job.Command)
 	}
 
-	if gotJob.State != wantJob.State {
-		t.Errorf("got state %q, want %q", gotJob.State, wantJob.State)
+	if gotJob.State != job.State {
+		t.Errorf("got state %q, want %q", gotJob.State, job.State)
 	}
 }
 
