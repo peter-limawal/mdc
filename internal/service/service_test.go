@@ -10,9 +10,9 @@ import (
 
 func TestServiceRunSucceeds(t *testing.T) {
 	id := "job-001"
-	cmd := []string{"echo", "hello"}
+	command := []string{"echo", "hello"}
 
-	job := domain.NewJob(id, cmd)
+	job := domain.NewJob(id, command)
 	ms := store.NewMemoryStore()
 	runner := executor.LocalExecutor{}
 	svc := New(ms, runner)
@@ -44,9 +44,9 @@ func TestServiceRunSucceeds(t *testing.T) {
 
 func TestServiceRunFailsWhenCommandIsUnknown(t *testing.T) {
 	id := "job-002"
-	cmd := []string{"__mdc_unknown_command__"}
+	command := []string{"__mdc_unknown_command__"}
 
-	job := domain.NewJob(id, cmd)
+	job := domain.NewJob(id, command)
 	ms := store.NewMemoryStore()
 	runner := executor.LocalExecutor{}
 	svc := New(ms, runner)
@@ -74,9 +74,9 @@ func TestServiceRunFailsWhenCommandIsUnknown(t *testing.T) {
 
 func TestServiceRunFailsWhenJobIDAlreadyExists(t *testing.T) {
 	id := "job-001"
-	cmd := []string{"echo", "hello"}
+	command := []string{"echo", "hello"}
 
-	job := domain.NewJob(id, cmd)
+	job := domain.NewJob(id, command)
 	ms := store.NewMemoryStore()
 	runner := executor.LocalExecutor{}
 	svc := New(ms, runner)
@@ -104,9 +104,9 @@ func TestServiceRunFailsWhenJobIDAlreadyExists(t *testing.T) {
 
 func TestServiceRunFailsWhenJobIsNotQueued(t *testing.T) {
 	id := "job-001"
-	cmd := []string{"echo", "hello"}
+	command := []string{"echo", "hello"}
 
-	job := domain.NewJob(id, cmd)
+	job := domain.NewJob(id, command)
 
 	if err := job.Start(); err != nil {
 		t.Fatalf("unexpected error starting job: %v", err)

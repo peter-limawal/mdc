@@ -12,9 +12,9 @@ func (LocalExecutor) Run(command []string) (string, error) {
 		return "", errors.New("command is required")
 	}
 
-	cmd := exec.Command(command[0], command[1:]...)
+	execCmd := exec.Command(command[0], command[1:]...)
 
-	output, err := cmd.CombinedOutput()
+	output, err := execCmd.CombinedOutput()
 
 	return string(output), err
 }

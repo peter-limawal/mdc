@@ -9,9 +9,9 @@ import (
 
 func TestMemoryStoreSave(t *testing.T) {
 	id := "job-001"
-	cmd := []string{"echo", "hello"}
+	command := []string{"echo", "hello"}
 
-	job := domain.NewJob(id, cmd)
+	job := domain.NewJob(id, command)
 	ms := NewMemoryStore()
 
 	if err := ms.Save(job); err != nil {
@@ -63,9 +63,9 @@ func TestMemoryStoreSaveFailsWhenIDAlreadyExists(t *testing.T) {
 
 func TestMemoryStoreGet(t *testing.T) {
 	id := "job-001"
-	cmd := []string{"echo", "hello"}
+	command := []string{"echo", "hello"}
 
-	job := domain.NewJob(id, cmd)
+	job := domain.NewJob(id, command)
 	ms := NewMemoryStore()
 
 	if err := ms.Save(job); err != nil {
@@ -103,9 +103,9 @@ func TestMemoryStoreGetReturnsErrorWhenIDNotFound(t *testing.T) {
 
 func TestMemoryStoreUpdate(t *testing.T) {
 	id := "job-001"
-	cmd := []string{"echo", "hello"}
+	command := []string{"echo", "hello"}
 
-	job := domain.NewJob(id, cmd)
+	job := domain.NewJob(id, command)
 	ms := NewMemoryStore()
 
 	if err := ms.Save(job); err != nil {
@@ -133,9 +133,9 @@ func TestMemoryStoreUpdate(t *testing.T) {
 
 func TestMemoryStoreUpdateReturnsErrorWhenIDNotFound(t *testing.T) {
 	id := "job-unknown"
-	cmd := []string{"echo", "hello"}
+	command := []string{"echo", "hello"}
 
-	job := domain.NewJob(id, cmd)
+	job := domain.NewJob(id, command)
 	ms := NewMemoryStore()
 
 	err := ms.Update(job)

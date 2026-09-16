@@ -7,9 +7,9 @@ import (
 )
 
 func TestCLIRunCommandSucceeds(t *testing.T) {
-	cmd := exec.Command("go", "run", ".", "run", "echo", "hello")
+	execCmd := exec.Command("go", "run", ".", "run", "echo", "hello")
 
-	output, err := cmd.CombinedOutput()
+	output, err := execCmd.CombinedOutput()
 
 	if err != nil {
 		t.Fatalf("unexpected CLI error: %v\noutput: %q", err, output)
@@ -27,9 +27,9 @@ func TestCLIRunCommandSucceeds(t *testing.T) {
 }
 
 func TestCLIRunCommandFailsWhenCommandIsUnknown(t *testing.T) {
-	cmd := exec.Command("go", "run", ".", "run", "__mdc_unknown_command__")
+	execCmd := exec.Command("go", "run", ".", "run", "__mdc_unknown_command__")
 
-	output, err := cmd.CombinedOutput()
+	output, err := execCmd.CombinedOutput()
 
 	if err == nil {
 		t.Fatal("expected CLI error for unknown command")
@@ -43,9 +43,9 @@ func TestCLIRunCommandFailsWhenCommandIsUnknown(t *testing.T) {
 }
 
 func TestCLIShowsUsageWhenArgumentsAreMissing(t *testing.T) {
-	cmd := exec.Command("go", "run", ".")
+	execCmd := exec.Command("go", "run", ".")
 
-	output, err := cmd.CombinedOutput()
+	output, err := execCmd.CombinedOutput()
 
 	if err == nil {
 		t.Fatal("expected CLI error when arguments are missing")
@@ -60,9 +60,9 @@ func TestCLIShowsUsageWhenArgumentsAreMissing(t *testing.T) {
 }
 
 func TestCLIRunCommandSeparatesOutputFromState(t *testing.T) {
-	cmd := exec.Command("go", "run", ".", "run", "printf", "hello")
+	execCmd := exec.Command("go", "run", ".", "run", "printf", "hello")
 
-	output, err := cmd.CombinedOutput()
+	output, err := execCmd.CombinedOutput()
 
 	if err != nil {
 		t.Fatalf("unexpected CLI error: %v\noutput: %q", err, output)
